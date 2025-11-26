@@ -75,13 +75,20 @@
         .smart-header.visible { transform: translateY(0); }
         
         .header-logo { height: 28px; cursor: pointer; }
-        .header-actions { display: flex; gap: 10px; }
-        .header-btn {
-            background: #f1f5f9; border: none;
-            width: 36px; height: 36px; border-radius: 50%;
+        
+        /* New Header Socials */
+        .header-socials { display: flex; gap: 8px; }
+        .header-social-btn {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: #f1f5f9;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-main);
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
         }
+        .header-social-btn:hover { background: var(--text-main); color: white; }
+        .header-social-btn svg { width: 16px; height: 16px; }
 
         /* --- HERO --- */
         .hero {
@@ -102,7 +109,7 @@
         h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
         p.bio { color: var(--text-sub); margin: 8px 0 20px; font-size: 15px; }
 
-        /* --- SOCIAL ROW --- */
+        /* --- SOCIAL ROW (HERO) --- */
         .social-row {
             display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;
         }
@@ -217,6 +224,28 @@
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
         @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 
+        /* --- SKELETON LOADING --- */
+        .skeleton {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            display: flex; flex-direction: column;
+        }
+        .sk-img { width: 100%; padding-top: 100%; background: #e2e8f0; animation: pulse 1.5s infinite; }
+        .sk-content { padding: 14px; }
+        .sk-line { height: 14px; background: #e2e8f0; border-radius: 4px; margin-bottom: 8px; animation: pulse 1.5s infinite; }
+        .sk-line.short { width: 60%; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* --- EMPTY STATE --- */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-sub);
+        }
+
         /* --- CARD --- */
         .card {
             background: white;
@@ -231,7 +260,6 @@
         }
         .card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
 
-        /* FEATURED TREATMENT */
         .card.featured-item {
             border: 2px solid var(--gold);
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
@@ -333,16 +361,13 @@
         }
         .action-btn img { height: 24px; width: auto; object-fit: contain; }
         .action-btn svg { width: 24px; height: 24px; }
-        
         .action-btn:active { transform: scale(0.98); }
         
         /* Brand Colors */
         .btn-amazon-us { background: #111827; }
         .btn-amazon-ae { background: #FF9900; }
         .btn-noon { background: #feee00; color: #000 !important; }
-        .btn-temu img, .btn-ali img {
-            filter: brightness(0) invert(1);
-        }
+        .btn-temu img, .btn-ali img { filter: brightness(0) invert(1); }
         .btn-temu { background: #fb7701; }
         .btn-ali { background: #ff4747; }
         .btn-generic { background: #0099FF; }
@@ -360,17 +385,11 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- 1. SMART HEADER -->
+    <!-- 1. SMART HEADER (IMPROVED) -->
     <header id="smartHeader" class="smart-header">
         <img src="logo.svg" alt="Logo" class="header-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <div class="header-actions">
-            <!-- ACCESSIBILITY FIX: Added aria-label -->
-            <button class="header-btn" onclick="document.getElementById('searchInput').focus()" aria-label="Search">
-                <i data-lucide="search" size="18"></i>
-            </button>
-            <button class="header-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Scroll to top">
-                <i data-lucide="arrow-up" size="18"></i>
-            </button>
+        <div class="header-socials" id="headerSocials">
+            <!-- Social Icons injected via JS -->
         </div>
     </header>
 
@@ -380,11 +399,8 @@
         <h1>Balo Finds Things</h1>
         <p class="bio">Cool gadgets, tech, and hidden gems.</p>
 
-        <div class="social-row">
-            <a href="https://www.instagram.com/balo_try?igsh=MWUwdWNleTdjeDVteQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-btn"><i data-lucide="instagram" size="20"></i></a>
-            <a href="https://www.tiktok.com/@balo_try?_r=1&_t=ZS-91j5ahZhVZa" target="_blank" rel="noopener noreferrer" class="social-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
-            <a href="https://youtube.com/@balotry?si=2ZpzM9ktT9O1iA59" target="_blank" rel="noopener noreferrer" class="social-btn"><i data-lucide="youtube" size="20"></i></a>
-        </div>
+        <!-- Dynamic Social Row -->
+        <div class="social-row" id="heroSocials"></div>
 
         <div class="store-selector">
             <a href="https://www.amazon.com/?tag=balofinds-20" target="_blank" rel="noopener noreferrer" class="store-btn">
@@ -409,7 +425,14 @@
 
     <!-- 4. GRID -->
     <div class="container">
-        <div id="loading" style="text-align:center; padding:40px; color:#666;">Loading Finds...</div>
+        <!-- Skeleton Loading State -->
+        <div id="loading" class="grid">
+            <div class="skeleton"><div class="sk-img"></div><div class="sk-content"><div class="sk-line"></div><div class="sk-line short"></div></div></div>
+            <div class="skeleton"><div class="sk-img"></div><div class="sk-content"><div class="sk-line"></div><div class="sk-line short"></div></div></div>
+            <div class="skeleton"><div class="sk-img"></div><div class="sk-content"><div class="sk-line"></div><div class="sk-line short"></div></div></div>
+            <div class="skeleton"><div class="sk-img"></div><div class="sk-content"><div class="sk-line"></div><div class="sk-line short"></div></div></div>
+        </div>
+        
         <div id="productGrid" class="grid"></div>
     </div>
 
@@ -418,7 +441,7 @@
         <div class="footer-links">
             <span class="footer-link" onclick="openContactModal()">Contact Me</span>
         </div>
-        <p>© 2025 Balo Finds. Commissions Earned.</p>
+        <p>© <span id="year"></span> Balo Finds. Commissions Earned.</p>
     </footer>
 
     <!-- GO TO TOP -->
@@ -429,7 +452,6 @@
     <!-- MODALS -->
     <div id="productModal" class="modal-overlay">
         <div class="modal-content">
-            <!-- ACCESSIBILITY FIX: Added aria-label -->
             <button class="close-btn" onclick="closeModal('productModal')" aria-label="Close modal"><i data-lucide="x" size="18"></i></button>
             <img id="modalImg" src="" class="modal-img">
             <h2 id="modalTitle" class="modal-title"></h2>
@@ -440,7 +462,6 @@
 
     <div id="contactModal" class="modal-overlay">
         <div class="modal-content">
-            <!-- ACCESSIBILITY FIX: Added aria-label -->
             <button class="close-btn" onclick="closeModal('contactModal')" aria-label="Close modal"><i data-lucide="x" size="18"></i></button>
             <h3 style="margin-top:0;">Contact Me</h3>
             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSco9o0ZTw7X5FvercT5yyGrRG85uSNzuWSo5tY66usE08ySHQ/viewform?embedded=true" style="width:100%; height:400px; border:none;">Loading…</iframe>
@@ -449,9 +470,60 @@
 
     <script>
         lucide.createIcons();
+        document.getElementById('year').innerText = new Date().getFullYear();
 
-        // FIXED: Using "Special:FilePath" from Wikimedia creates a robust redirect to the real file.
-        // This solves the broken icon issue permanently.
+        // --- CONFIG: UPDATE SOCIAL LINKS HERE ---
+        const SOCIAL_LINKS = [
+            { 
+                icon: 'instagram', 
+                url: 'https://www.instagram.com/balo_try?igsh=MWUwdWNleTdjeDVteQ%3D%3D&utm_source=qr',
+                type: 'lucide' 
+            },
+            { 
+                icon: '<path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>', 
+                url: 'https://www.tiktok.com/@balo_try?_r=1&_t=ZS-91j5ahZhVZa',
+                type: 'svg' 
+            },
+            { 
+                icon: 'youtube', 
+                url: 'https://youtube.com/@balotry?si=2ZpzM9ktT9O1iA59',
+                type: 'lucide' 
+            }
+        ];
+
+        // RENDER SOCIALS (Hero & Header)
+        function renderSocials() {
+            const heroContainer = document.getElementById('heroSocials');
+            const headerContainer = document.getElementById('headerSocials');
+            
+            SOCIAL_LINKS.forEach(link => {
+                let inner = '';
+                if(link.type === 'lucide') {
+                    inner = `<i data-lucide="${link.icon}" size="18"></i>`;
+                } else {
+                    inner = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">${link.icon}</svg>`;
+                }
+
+                // Header version (smaller)
+                const headerBtn = document.createElement('a');
+                headerBtn.href = link.url;
+                headerBtn.target = "_blank";
+                headerBtn.rel = "noopener noreferrer";
+                headerBtn.className = "header-social-btn";
+                headerBtn.innerHTML = inner;
+                headerContainer.appendChild(headerBtn);
+
+                // Hero version (larger)
+                const heroBtn = headerBtn.cloneNode(true);
+                heroBtn.className = "social-btn";
+                // Adjust icon size for hero
+                heroBtn.innerHTML = heroBtn.innerHTML.replace('width="18"', 'width="20"').replace('height="18"', 'height="20"').replace('size="18"', 'size="20"');
+                heroContainer.appendChild(heroBtn);
+            });
+            lucide.createIcons();
+        }
+        renderSocials();
+
         const LOGOS = {
             amazonIcon: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg",
             noon: "https://commons.wikimedia.org/wiki/Special:FilePath/Noon_Website_Logo.svg",
@@ -481,7 +553,6 @@
             download: true, header: true,
             complete: function(results) {
                 allProducts = results.data.filter(item => item.Title && item.Title.trim() !== "");
-                // Sort Featured First
                 allProducts.sort((a, b) => {
                     const aFeatured = a.Featured && a.Featured.toLowerCase() === 'true';
                     const bFeatured = b.Featured && b.Featured.toLowerCase() === 'true';
@@ -533,6 +604,17 @@
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i data-lucide="package-open" size="48" style="margin-bottom:10px; opacity:0.5;"></i>
+                        <p>No finds match that search.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
             products.forEach((product) => {
                 const hasUS = product.Link_USA && product.Link_USA.trim() !== "";
                 const hasAE = product.Link_UAE && product.Link_UAE.trim() !== "";
@@ -563,17 +645,13 @@
             lucide.createIcons();
         }
 
-        // FIXED: Strict brand detection
         function getBrandStyle(url) {
             if (!url) return { class: 'btn-generic', icon: null, name: 'Buy Here' };
             const lower = url.toLowerCase();
             
-            // Check specifically for Known Brands
             if (lower.includes('noon')) return { class: 'btn-noon', icon: LOGOS.noon, name: 'Noon' };
             if (lower.includes('temu')) return { class: 'btn-temu', icon: LOGOS.temu, name: 'Temu' };
             if (lower.includes('aliexpress')) return { class: 'btn-ali', icon: LOGOS.ali, name: 'AliExpress' };
-            
-            // Note: Amazon logic remains, but isn't used for 'Other' links usually
             if (lower.includes('amazon') || lower.includes('amzn')) return { class: 'btn-amazon-us', icon: LOGOS.amazonIcon, name: 'Amazon' };
             
             return { class: 'btn-generic', icon: null, name: 'Buy Here' };
@@ -590,36 +668,30 @@
             const actions = document.getElementById('modalActions');
             actions.innerHTML = '';
             
-            // 1. Amazon US
             if (product.Link_USA) {
                 actions.innerHTML += `<a href="${product.Link_USA}" target="_blank" rel="noopener noreferrer" class="action-btn btn-amazon-us">
                     <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon US
                 </a>`;
             }
-            // 2. Amazon AE
             if (product.Link_UAE) {
                 actions.innerHTML += `<a href="${product.Link_UAE}" target="_blank" rel="noopener noreferrer" class="action-btn btn-amazon-ae">
                     <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon AE
                 </a>`;
             }
             
-            // 3. OTHER LINKS (Logic Updated)
             if (product.Link_Other) {
                 let brand = getBrandStyle(product.Link_Other);
                 let label = product.Source_Other || brand.name;
                 
-                // FORCE GENERIC if the source label says "Other" or is empty
                 if (label.trim().toLowerCase() === 'other' || label.trim() === '') {
                     brand = { class: 'btn-generic', icon: null, name: 'Buy Here' };
-                    label = "Here"; // This makes the text: "Buy Here"
+                    label = "Here";
                 }
 
-                // If brand has an icon, use it (img). If null (Generic), use External Link icon (svg).
                 const iconHTML = brand.icon 
                     ? `<img src="${brand.icon}">` 
                     : `<i data-lucide="external-link"></i>`;
                 
-                // Determine final button text
                 const buttonText = (label === "Here") ? "Buy Here" : `Buy on ${label}`;
 
                 actions.innerHTML += `<a href="${product.Link_Other}" target="_blank" rel="noopener noreferrer" class="action-btn ${brand.class}">

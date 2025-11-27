@@ -21,20 +21,13 @@
     <meta name="author" content="Balo Finds">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
 
-    <!-- OPEN GRAPH / SOCIAL SHARING (Whatsapp, iMessage, Facebook) -->
-    <!-- NOTE: For best results on Whatsapp, use a full URL (https://...) to a JPG or PNG image, not SVG -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://balofinds.com/"> <!-- REPLACE with your actual domain -->
+    <meta property="og:url" content="https://balofinds.github.io/Landing_Page/"> 
     <meta property="og:title" content="Balo Finds | Smart Hub">
     <meta property="og:description" content="Cool gadgets, tech, and hidden gems. Your purchases support Balo Finds!">
-    <meta property="og:image" content="https://balofinds.com/preview-image.jpg"> <!-- REPLACE with your actual image URL -->
+    <meta property="og:image" content="https://balofinds.com/preview-image.jpg"> 
 
-    <!-- TWITTER CARD -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Balo Finds">
-    <meta name="twitter:description" content="Cool gadgets, tech, and hidden gems.">
-    <meta name="twitter:image" content="https://balofinds.com/preview-image.jpg">
-    
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +41,6 @@
             --text-main: #0F172A;
             --text-sub: #64748B;
             --gold: #FFD700;
-            --accent-gradient: linear-gradient(135deg, #0099FF 0%, #2563EB 100%);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -98,7 +90,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transform: translateY(-100%); /* Hidden initially */
+            transform: translateY(-100%);
             transition: transform 0.3s ease;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.5);
@@ -123,40 +115,12 @@
         /* --- HERO --- */
         .hero {
             text-align: center;
-            padding: 40px 20px 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .profile-pic {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            background: white;
-            padding: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 16px;
-            object-fit: contain;
-        }
-        
-        h1 { 
-            margin: 0; 
-            font-size: 32px; 
-            font-weight: 800; 
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Updated Bio Styles */
-        .hero {
-            text-align: center;
             padding: 40px 20px 10px;
             max-width: 600px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers everything perfectly */
+            align-items: center;
         }
         .profile-pic {
             width: 100px; height: 100px;
@@ -178,11 +142,11 @@
         
         .bio-container {
             margin: 16px 0 24px;
-            color: var(--text-main); /* Darker text like screenshot */
-            font-size: 17px; /* LARGER TEXT */
+            color: var(--text-main); 
+            font-size: 17px; 
             line-height: 1.5;
             font-weight: 500;
-            max-width: 320px; /* This forces the text into a compact block */
+            max-width: 320px; 
         }
         .bio-highlight {
             display: block;
@@ -209,18 +173,21 @@
         }
         .social-btn:hover { transform: scale(1.1); color: var(--primary); }
 
-        /* --- STORE BUTTONS --- */
+        /* --- IMPROVED STORE BUTTONS --- */
         .store-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px; /* Increased gap for better spacing */
             margin-bottom: 30px;
+            width: 100%;
+            max-width: 400px; /* Constrain width for better aesthetic */
         }
+        
         .store-btn {
-            position: relative; /* Required for the badge */
+            position: relative; 
             background: white;
-            padding: 16px 24px; /* Slightly larger padding */
-            border-radius: 18px;
+            padding: 16px 20px; 
+            border-radius: 20px; /* More rounded */
             font-weight: 700;
             font-size: 15px;
             color: var(--text-main);
@@ -230,27 +197,44 @@
             justify-content: center;
             gap: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            border: 1px solid rgba(0,0,0,0.05); /* Subtle border */
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent; /* Prepare for hover */
         }
+        
+        .store-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .store-btn:active { transform: scale(0.98); }
+
+        /* NEW BADGE DESIGN */
         .flag-badge {
             position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%; /* Perfect circle */
+            top: -10px; /* Pop out of the button */
+            right: -10px; /* Pop out of the button */
+            width: 26px; /* Larger size */
+            height: 26px;
+            border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 1px solid #f1f5f9;
+            object-position: left center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Stronger shadow */
+            border: 2.5px solid #fff; /* Thick white border to separate from button */
+            z-index: 10;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .store-btn img { height: 18px; object-fit: contain; }
-        .store-btn:active { transform: scale(0.98); }
+        
+        .store-btn:hover .flag-badge {
+            transform: scale(1.2) rotate(5deg); /* Fun interaction */
+        }
+
+        .store-btn img.store-logo { height: 22px; width: auto; object-fit: contain; }
 
         /* --- REAL GLASS CONTROLS --- */
         .controls-wrapper {
             position: sticky;
-            top: 55px; /* Below smart header */
+            top: 55px;
             z-index: 90;
             padding: 10px 0;
             margin-bottom: 20px;
@@ -283,14 +267,14 @@
             color: #94A3B8; width: 20px;
         }
 
-        /* Category Pills with Scroll Snap */
+        /* Category Pills */
         .category-scroll {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding: 0 20px 8px;
             scrollbar-width: none;
-            scroll-snap-type: x mandatory; /* Elevate: better feel on mobile */
+            scroll-snap-type: x mandatory; 
         }
         .category-scroll::-webkit-scrollbar { display: none; }
 
@@ -503,7 +487,6 @@
         <img src="logo.svg" alt="Profile" class="profile-pic">
         <h1>Balo Finds</h1>
         
-        <!-- New Compact Bio -->
         <div class="bio-container">
             Make sure you continue in the browser for proper tracking.
             <span class="bio-highlight">
@@ -511,22 +494,21 @@
             </span>
         </div>
     
-        <!-- Dynamic Social Row -->
         <div class="social-row" id="heroSocials"></div>
     
         <div class="store-selector">
-            <!-- Amazon USA -->
+            <!-- Amazon USA Button with New Badge -->
             <a href="https://www.amazon.com/?tag=balofinds-20" target="_blank" rel="noopener noreferrer" class="store-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag-badge" alt="USA Flag">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="height: 20px;" alt="Amazon"> 
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="store-logo" alt="Amazon"> 
                 USA
             </a>
     
-            <!-- Amazon UAE -->
+            <!-- Amazon UAE Button with New Badge -->
             <a href="https://www.amazon.ae/?tag=balofinds-21" target="_blank" rel="noopener noreferrer" class="store-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg" class="flag-badge" alt="UAE Flag">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="height: 20px;" alt="Amazon"> 
-                UAE
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="store-logo" alt="Amazon"> 
+                AE
             </a>
         </div>
     </div>
@@ -610,7 +592,7 @@
             }
         ];
 
-        // RENDER SOCIALS (Hero & Header)
+        // RENDER SOCIALS
         function renderSocials() {
             const heroContainer = document.getElementById('heroSocials');
             const headerContainer = document.getElementById('headerSocials');
@@ -623,7 +605,6 @@
                     inner = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">${link.icon}</svg>`;
                 }
 
-                // Header version (smaller)
                 const headerBtn = document.createElement('a');
                 headerBtn.href = link.url;
                 headerBtn.target = "_blank";
@@ -632,10 +613,8 @@
                 headerBtn.innerHTML = inner;
                 headerContainer.appendChild(headerBtn);
 
-                // Hero version (larger)
                 const heroBtn = headerBtn.cloneNode(true);
                 heroBtn.className = "social-btn";
-                // Adjust icon size for hero
                 heroBtn.innerHTML = heroBtn.innerHTML.replace('width="18"', 'width="20"').replace('height="18"', 'height="20"').replace('size="18"', 'size="20"');
                 heroContainer.appendChild(heroBtn);
             });
@@ -664,6 +643,7 @@
             }
         });
 
+        // FETCH DATA
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3kT1iBk7hqWIEducgTCuWy4P9MyIqS-5WKZn-toJHBfaD8DRoDZP6OI1NwXbY7QnS5MaXF-gxxNku/pub?output=csv';
         let allProducts = [];
         let activeCategory = 'all';
@@ -705,7 +685,7 @@
             activeCategory = cat;
             document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active'));
             if(element) element.classList.add('active');
-            else document.querySelector('.cat-pill').classList.add('active'); // fallback to All
+            else document.querySelector('.cat-pill').classList.add('active'); 
             
             const term = document.getElementById('searchInput').value.toLowerCase();
             applyFilters(term, cat);
@@ -795,7 +775,6 @@
             const actions = document.getElementById('modalActions');
             actions.innerHTML = '';
             
-            // Helper to track clicks
             const trackClick = (store) => {
                 if(typeof gtag !== 'undefined') {
                     gtag('event', 'affiliate_click', {
@@ -852,7 +831,7 @@
                 btnOther.rel = "noopener noreferrer";
                 btnOther.className = `action-btn ${brand.class}`;
                 btnOther.innerHTML = `${iconHTML} ${buttonText}`;
-                btnOther.onclick = () => trackClick(label); // Track the specific store name
+                btnOther.onclick = () => trackClick(label);
                 actions.appendChild(btnOther);
             }
             

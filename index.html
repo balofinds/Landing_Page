@@ -3,8 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PRIMARY METADATA -->
     <title>Balo Finds | Smart Hub</title>
+    <meta name="description" content="Cool gadgets, tech, and hidden gems. Make sure you continue in the browser for proper tracking.">
+    <meta name="author" content="Balo Finds">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+    <!-- OPEN GRAPH / SOCIAL SHARING (Whatsapp, iMessage, Facebook) -->
+    <!-- NOTE: For best results on Whatsapp, use a full URL (https://...) to a JPG or PNG image, not SVG -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://balofinds.com/"> <!-- REPLACE with your actual domain -->
+    <meta property="og:title" content="Balo Finds | Smart Hub">
+    <meta property="og:description" content="Cool gadgets, tech, and hidden gems. Your purchases support Balo Finds!">
+    <meta property="og:image" content="https://balofinds.com/preview-image.jpg"> <!-- REPLACE with your actual image URL -->
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Balo Finds">
+    <meta name="twitter:description" content="Cool gadgets, tech, and hidden gems.">
+    <meta name="twitter:image" content="https://balofinds.com/preview-image.jpg">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +37,7 @@
             --text-main: #0F172A;
             --text-sub: #64748B;
             --gold: #FFD700;
+            --accent-gradient: linear-gradient(135deg, #0099FF 0%, #2563EB 100%);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -71,12 +90,12 @@
             transform: translateY(-100%); /* Hidden initially */
             transition: transform 0.3s ease;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
         }
         .smart-header.visible { transform: translateY(0); }
         
         .header-logo { height: 28px; cursor: pointer; }
         
-        /* New Header Socials */
         .header-socials { display: flex; gap: 8px; }
         .header-social-btn {
             width: 34px; height: 34px;
@@ -106,8 +125,34 @@
             margin-bottom: 16px;
             object-fit: contain;
         }
-        h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-        p.bio { color: var(--text-sub); margin: 8px 0 20px; font-size: 15px; }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 32px; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Updated Bio Styles */
+        .bio-container {
+            margin: 12px 0 24px;
+            color: var(--text-sub);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .bio-highlight {
+            display: block;
+            margin-top: 4px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 13px;
+        }
+        .bio-heart { color: #e11d48; display: inline-block; animation: beat 1.5s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
         /* --- SOCIAL ROW (HERO) --- */
         .social-row {
@@ -153,7 +198,7 @@
         /* --- REAL GLASS CONTROLS --- */
         .controls-wrapper {
             position: sticky;
-            top: 60px; /* Below smart header */
+            top: 55px; /* Below smart header */
             z-index: 90;
             padding: 10px 0;
             margin-bottom: 20px;
@@ -179,20 +224,21 @@
             outline: none;
             transition: all 0.2s;
         }
-        .search-input:focus { background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .search-input:focus { background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border-color: var(--primary); }
         .search-icon {
             position: absolute; left: 35px; top: 50%;
             transform: translateY(-50%);
             color: #94A3B8; width: 20px;
         }
 
-        /* Category Pills */
+        /* Category Pills with Scroll Snap */
         .category-scroll {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding: 0 20px 8px;
             scrollbar-width: none;
+            scroll-snap-type: x mandatory; /* Elevate: better feel on mobile */
         }
         .category-scroll::-webkit-scrollbar { display: none; }
 
@@ -207,6 +253,7 @@
             cursor: pointer;
             border: 1px solid transparent;
             transition: all 0.2s;
+            scroll-snap-align: start;
         }
         .cat-pill.active {
             background: var(--text-main);
@@ -244,6 +291,12 @@
             text-align: center;
             padding: 40px;
             color: var(--text-sub);
+        }
+        .empty-action {
+            margin-top: 12px;
+            background: none; border: 1px solid var(--text-sub);
+            padding: 8px 16px; border-radius: 20px;
+            color: var(--text-main); font-weight: 600; cursor: pointer;
         }
 
         /* --- CARD --- */
@@ -385,7 +438,7 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- 1. SMART HEADER (IMPROVED) -->
+    <!-- 1. SMART HEADER -->
     <header id="smartHeader" class="smart-header">
         <img src="logo.svg" alt="Logo" class="header-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
         <div class="header-socials" id="headerSocials">
@@ -396,8 +449,12 @@
     <!-- 2. HERO -->
     <div class="hero">
         <img src="logo.svg" alt="Profile" class="profile-pic">
-        <h1>Balo Finds Things</h1>
-        <p class="bio">Cool gadgets, tech, and hidden gems.</p>
+        <h1>Balo Finds</h1>
+        
+        <div class="bio-container">
+            Make sure you continue in the browser for proper tracking.<br>
+            <span class="bio-highlight">Your purchases support Balo Finds thank you! <span class="bio-heart">❤</span></span>
+        </div>
 
         <!-- Dynamic Social Row -->
         <div class="social-row" id="heroSocials"></div>
@@ -585,9 +642,16 @@
         function filterCategory(cat, element) {
             activeCategory = cat;
             document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
+            if(element) element.classList.add('active');
+            else document.querySelector('.cat-pill').classList.add('active'); // fallback to All
+            
             const term = document.getElementById('searchInput').value.toLowerCase();
             applyFilters(term, cat);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterCategory('all', document.querySelector('.cat-pill'));
         }
 
         function applyFilters(searchTerm, category) {
@@ -609,6 +673,7 @@
                     <div class="empty-state">
                         <i data-lucide="package-open" size="48" style="margin-bottom:10px; opacity:0.5;"></i>
                         <p>No finds match that search.</p>
+                        <button onclick="clearSearch()" class="empty-action">Clear Filters</button>
                     </div>
                 `;
                 lucide.createIcons();

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3QECV45E9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-F3QECV45E9');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -464,7 +475,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="US"> USA
             </a>
             <a href="https://www.amazon.ae/?tag=balofinds-21" target="_blank" rel="noopener noreferrer" class="store-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="AE"> UAE
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="AE"> AE
             </a>
         </div>
     </div>
@@ -733,17 +744,42 @@
             const actions = document.getElementById('modalActions');
             actions.innerHTML = '';
             
+            // Helper to track clicks
+            const trackClick = (store) => {
+                if(typeof gtag !== 'undefined') {
+                    gtag('event', 'affiliate_click', {
+                        'event_category': 'Affiliate',
+                        'event_label': product.Title,
+                        'store_destination': store
+                    });
+                }
+            };
+
+            // Amazon US Button
             if (product.Link_USA) {
-                actions.innerHTML += `<a href="${product.Link_USA}" target="_blank" rel="noopener noreferrer" class="action-btn btn-amazon-us">
-                    <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon US
-                </a>`;
+                const btnUS = document.createElement('a');
+                btnUS.href = product.Link_USA;
+                btnUS.target = "_blank";
+                btnUS.rel = "noopener noreferrer";
+                btnUS.className = "action-btn btn-amazon-us";
+                btnUS.innerHTML = `<img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon US`;
+                btnUS.onclick = () => trackClick('Amazon US');
+                actions.appendChild(btnUS);
             }
+
+            // Amazon UAE Button
             if (product.Link_UAE) {
-                actions.innerHTML += `<a href="${product.Link_UAE}" target="_blank" rel="noopener noreferrer" class="action-btn btn-amazon-ae">
-                    <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon AE
-                </a>`;
+                const btnAE = document.createElement('a');
+                btnAE.href = product.Link_UAE;
+                btnAE.target = "_blank";
+                btnAE.rel = "noopener noreferrer";
+                btnAE.className = "action-btn btn-amazon-ae";
+                btnAE.innerHTML = `<img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon AE`;
+                btnAE.onclick = () => trackClick('Amazon AE');
+                actions.appendChild(btnAE);
             }
             
+            // Other/Generic Button
             if (product.Link_Other) {
                 let brand = getBrandStyle(product.Link_Other);
                 let label = product.Source_Other || brand.name;
@@ -759,9 +795,14 @@
                 
                 const buttonText = (label === "Here") ? "Buy Here" : `Buy on ${label}`;
 
-                actions.innerHTML += `<a href="${product.Link_Other}" target="_blank" rel="noopener noreferrer" class="action-btn ${brand.class}">
-                    ${iconHTML} ${buttonText}
-                </a>`;
+                const btnOther = document.createElement('a');
+                btnOther.href = product.Link_Other;
+                btnOther.target = "_blank";
+                btnOther.rel = "noopener noreferrer";
+                btnOther.className = `action-btn ${brand.class}`;
+                btnOther.innerHTML = `${iconHTML} ${buttonText}`;
+                btnOther.onclick = () => trackClick(label); // Track the specific store name
+                actions.appendChild(btnOther);
             }
             
             modal.classList.add('active');

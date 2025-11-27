@@ -39,7 +39,7 @@
         :root {
             --primary: #0099FF;
             --text-main: #0F172A;
-            --text-sub: #64748B;
+            --text-sub: #475569; /* Darker grey for better visibility */
             --gold: #FFD700;
         }
 
@@ -115,7 +115,7 @@
         /* --- HERO --- */
         .hero {
             text-align: center;
-            padding: 40px 20px 10px;
+            padding: 40px 20px 20px;
             max-width: 600px;
             margin: 0 auto;
             display: flex;
@@ -148,11 +148,16 @@
             font-weight: 500;
             max-width: 320px; 
         }
+        
         .bio-highlight {
             display: block;
-            margin-top: 8px;
-            font-size: 15px;
-            color: var(--text-sub);
+            margin-top: 10px;
+            font-size: 16px; /* Increased from 15px */
+            font-weight: 600; /* Added weight */
+            color: var(--text-sub); /* Darker grey */
+            background: rgba(255,255,255,0.5); /* Subtle backing for contrast */
+            padding: 8px;
+            border-radius: 12px;
         }
         .bio-heart { color: #e11d48; display: inline-block; animation: beat 1.5s infinite; }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
@@ -173,63 +178,25 @@
         }
         .social-btn:hover { transform: scale(1.1); color: var(--primary); }
 
-        /* --- IMPROVED STORE BUTTONS --- */
-        .store-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px; /* Increased gap for better spacing */
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 400px; /* Constrain width for better aesthetic */
-        }
-        
-        .store-btn {
-            position: relative; 
-            background: white;
-            padding: 16px 20px; 
-            border-radius: 20px; /* More rounded */
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text-main);
-            text-decoration: none;
+        .hero-tagline {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 2px solid transparent; /* Prepare for hover */
         }
-        
-        .store-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-color: rgba(0,0,0,0.05);
+        .inline-logo {
+            height: 18px;
+            width: auto;
+            transform: translateY(1px);
         }
-
-        .store-btn:active { transform: scale(0.98); }
-
-        /* NEW BADGE DESIGN */
-        .flag-badge {
-            position: absolute;
-            top: -10px; /* Pop out of the button */
-            right: -10px; /* Pop out of the button */
-            width: 26px; /* Larger size */
-            height: 26px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: left center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Stronger shadow */
-            border: 2.5px solid #fff; /* Thick white border to separate from button */
-            z-index: 10;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .store-btn:hover .flag-badge {
-            transform: scale(1.2) rotate(5deg); /* Fun interaction */
-        }
-
-        .store-btn img.store-logo { height: 22px; width: auto; object-fit: contain; }
 
         /* --- REAL GLASS CONTROLS --- */
         .controls-wrapper {
@@ -442,15 +409,32 @@
         .modal-title { font-size: 20px; font-weight: 800; margin: 0 0 10px; }
         .modal-desc { color: var(--text-sub); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
         
+        /* UPDATED MODAL BUTTONS */
         .action-btn {
+            position: relative;
             width: 100%; padding: 16px; border-radius: 16px;
             font-weight: 700; text-decoration: none;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: transform 0.1s; color: white; margin-bottom: 10px;
+            transition: transform 0.1s; color: white; margin-bottom: 12px;
+            overflow: visible; /* Allow badge to pop out if needed, though we will keep it inside */
         }
         .action-btn img { height: 24px; width: auto; object-fit: contain; }
         .action-btn svg { width: 24px; height: 24px; }
         .action-btn:active { transform: scale(0.98); }
+
+        /* Badge inside Modal Button */
+        .btn-badge-icon {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important; 
+            min-height: 32px !important;
+            border-radius: 50% !important;
+            object-fit: cover !important; 
+            object-position: 15% center !important; 
+            border: 2px solid #fff;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
         
         /* Brand Colors */
         .btn-amazon-us { background: #111827; }
@@ -488,28 +472,17 @@
         <h1>Balo Finds</h1>
         
         <div class="bio-container">
-            Make sure you continue in the browser for proper tracking.
+            <!-- Make sure you continue in the browser for proper tracking. -->
             <span class="bio-highlight">
                 Your purchases support Balo Finds thank you! <span class="bio-heart">❤</span>
             </span>
         </div>
     
         <div class="social-row" id="heroSocials"></div>
-    
-        <div class="store-selector">
-            <!-- Amazon USA Button with New Badge -->
-            <a href="https://www.amazon.com/?tag=balofinds-20" target="_blank" rel="noopener noreferrer" class="store-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag-badge" alt="USA Flag">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="store-logo" alt="Amazon"> 
-                USA
-            </a>
-    
-            <!-- Amazon UAE Button with New Badge -->
-            <a href="https://www.amazon.ae/?tag=balofinds-21" target="_blank" rel="noopener noreferrer" class="store-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg" class="flag-badge" alt="UAE Flag">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="store-logo" alt="Amazon"> 
-                AE
-            </a>
+
+        <!-- NEW HERO TEXT REPLACING BUTTONS -->
+        <div class="hero-tagline">
+            Find featured <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="inline-logo" alt="Amazon"> products
         </div>
     </div>
 
@@ -626,7 +599,10 @@
             amazonIcon: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg",
             noon: "https://commons.wikimedia.org/wiki/Special:FilePath/Noon_Website_Logo.svg",
             temu: "https://commons.wikimedia.org/wiki/Special:FilePath/Temu_logo.svg",
-            ali: "https://commons.wikimedia.org/wiki/Special:FilePath/Aliexpress_logo.svg"
+            ali: "https://commons.wikimedia.org/wiki/Special:FilePath/Aliexpress_logo.svg",
+            flagUS: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+            flagAE: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
+            flagGlobal: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_the_United_Nations.svg" /* Represents Global/World */
         };
 
         // SCROLL LISTENER
@@ -785,26 +761,37 @@
                 }
             };
 
-            // Amazon US Button
+            // Amazon US Button (Global Badge)
             if (product.Link_USA) {
                 const btnUS = document.createElement('a');
                 btnUS.href = product.Link_USA;
                 btnUS.target = "_blank";
                 btnUS.rel = "noopener noreferrer";
                 btnUS.className = "action-btn btn-amazon-us";
-                btnUS.innerHTML = `<img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon US`;
+                // Added Global Badge
+                btnUS.innerHTML = `
+                    <i data-lucide="globe" style="margin-right:8px;"></i>
+                    <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> 
+                    Buy on Amazon Global
+                `;
+                
                 btnUS.onclick = () => trackClick('Amazon US');
                 actions.appendChild(btnUS);
             }
 
-            // Amazon UAE Button
+            // Amazon UAE Button (UAE Flag Badge)
             if (product.Link_UAE) {
                 const btnAE = document.createElement('a');
                 btnAE.href = product.Link_UAE;
                 btnAE.target = "_blank";
                 btnAE.rel = "noopener noreferrer";
                 btnAE.className = "action-btn btn-amazon-ae";
-                btnAE.innerHTML = `<img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> Buy on Amazon AE`;
+                // Added UAE Badge
+                btnAE.innerHTML = `
+                    <img src="${LOGOS.flagAE}" class="btn-badge-icon" alt="UAE">
+                    <img src="${LOGOS.amazonIcon}" style="filter: brightness(0) invert(1);"> 
+                    Buy on Amazon AE
+                `;
                 btnAE.onclick = () => trackClick('Amazon AE');
                 actions.appendChild(btnAE);
             }

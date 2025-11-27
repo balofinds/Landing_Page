@@ -149,18 +149,46 @@
         }
         
         /* Updated Bio Styles */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers everything perfectly */
+        }
+        .profile-pic {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: white;
+            padding: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 16px;
+            object-fit: contain;
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+        
         .bio-container {
-            margin: 12px 0 24px;
-            color: var(--text-sub);
-            font-size: 14px;
-            line-height: 1.6;
+            margin: 16px 0 24px;
+            color: var(--text-main); /* Darker text like screenshot */
+            font-size: 17px; /* LARGER TEXT */
+            line-height: 1.5;
+            font-weight: 500;
+            max-width: 320px; /* This forces the text into a compact block */
         }
         .bio-highlight {
             display: block;
-            margin-top: 4px;
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 13px;
+            margin-top: 8px;
+            font-size: 15px;
+            color: var(--text-sub);
         }
         .bio-heart { color: #e11d48; display: inline-block; animation: beat 1.5s infinite; }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
@@ -189,19 +217,32 @@
             margin-bottom: 30px;
         }
         .store-btn {
+            position: relative; /* Required for the badge */
             background: white;
-            padding: 14px;
+            padding: 16px 24px; /* Slightly larger padding */
             border-radius: 18px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.05); /* Subtle border */
+        }
+        .flag-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%; /* Perfect circle */
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #f1f5f9;
         }
         .store-btn img { height: 18px; object-fit: contain; }
         .store-btn:active { transform: scale(0.98); }
@@ -462,20 +503,30 @@
         <img src="logo.svg" alt="Profile" class="profile-pic">
         <h1>Balo Finds</h1>
         
+        <!-- New Compact Bio -->
         <div class="bio-container">
-            Make sure you continue in the browser for proper tracking.<br>
-            <span class="bio-highlight">Your purchases support Balo Finds thank you! <span class="bio-heart">❤</span></span>
+            Make sure you continue in the browser for proper tracking.
+            <span class="bio-highlight">
+                Your purchases support Balo Finds thank you! <span class="bio-heart">❤</span>
+            </span>
         </div>
-
+    
         <!-- Dynamic Social Row -->
         <div class="social-row" id="heroSocials"></div>
-
+    
         <div class="store-selector">
+            <!-- Amazon USA -->
             <a href="https://www.amazon.com/?tag=balofinds-20" target="_blank" rel="noopener noreferrer" class="store-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="US"> USA
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="flag-badge" alt="USA Flag">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="height: 20px;" alt="Amazon"> 
+                USA
             </a>
+    
+            <!-- Amazon UAE -->
             <a href="https://www.amazon.ae/?tag=balofinds-21" target="_blank" rel="noopener noreferrer" class="store-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="AE"> AE
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg" class="flag-badge" alt="UAE Flag">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" style="height: 20px;" alt="Amazon"> 
+                UAE
             </a>
         </div>
     </div>
